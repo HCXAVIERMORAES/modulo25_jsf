@@ -25,38 +25,33 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.3.2</version>
+			<version>42.3.6</version>
 		</dependency>
-
-		<!-- dependencia usado no curso, hibernate-core de 2016 -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.2.6.Final</version>
-		</dependency>
+		
 		<!-- hibernate mais atual março 2022 -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core <dependency> 
-			<groupId>org.hibernate</groupId> <artifactId>hibernate-core</artifactId> 
-			<version>6.0.0.Final</version> <type>pom</type> </dependency> -->
-		<!-- dependencia usado no curso, hibernate-entitymanger de 2016 -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
-		<dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		 <dependency> 
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.2.6.Final</version>
+			 <artifactId>hibernate-core</artifactId> 
+			<version>5.6.6.Final</version> 
+			<type>pom</type> 
 		</dependency>
 
 		<!-- dependencia mais recente, hibernate-entitymanger de março 2022 -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager 
-			<dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-entitymanager</artifactId> 
-			<version>5.6.7.Final</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		    <version>5.6.6.Final</version>
+		</dependency>
+
 		<!--Usando o Java acima da versão 9 deve-se adicionar as dependências abaixo no POM.XML -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
