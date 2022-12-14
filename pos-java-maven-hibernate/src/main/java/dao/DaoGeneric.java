@@ -76,6 +76,11 @@ public class DaoGeneric<E> {
 			
 			return lista;			
 		}
+		
+	//criando um metodo para chamar o EntityManagerr de qualquer lugar do pprojeto
+		public EntityManager getEntityManager() {
+			return entityManager;
+		}
 	
 
 }//fim daoGeneric

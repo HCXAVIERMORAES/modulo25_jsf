@@ -20,8 +20,8 @@ public class TesteHibernate {
 		UsuarioPessoa pessoa = new UsuarioPessoa(); //instancia a classe usuario
 		  
 		 //inser os dados da classe
-		 pessoa.setNome("Julio");
-		 pessoa.setSobrenome("Cesar");
+		 pessoa.setNome("José");
+		 pessoa.setSobrenome("arruda");
 		 pessoa.setEmail("pc@gmail.com");
 		 pessoa.setIdade(33);
 		 pessoa.setLogin("teste");
@@ -80,6 +80,7 @@ public class TesteHibernate {
 			System.out.println(pessoa); //mostrar natel		
 		}
 		
+		//consulta no Bd
 		@Test
 		public void testeConsultar() {
 			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>(); 
@@ -93,5 +94,63 @@ public class TesteHibernate {
 						
 			}
 		}
+		
+		//teste de HQL
+		@Test
+		public void testeQuerylist() {
+			
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			//iniciando uma lista
+			List<UsuarioPessoa> list = daoGeneric.getEntityManager()
+					  .createQuery(" from UsuarioPessoa where  nome = 'Julio'").getResultList(); /*retorna toda a lista
+					   												para retorna um especifico usar where*/
+				for (UsuarioPessoa usuarioPessoa : list) {
+				
+				System.out.println(usuarioPessoa);
+			}				
+		}
+		
+	//teste do sql q chama lista com quantidade definida
+		@Test
+		public void testeQuerylistMaxReslt() {
+			
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			//iniciando uma lista
+			@SuppressWarnings("unchecked")
+			List<UsuarioPessoa> list = daoGeneric.getEntityManager()
+					  .createQuery(" from UsuarioPessoa order by id")
+					  .setMaxResults(2).getResultList(); /*retorna toda a lista
+					   									 para retorna um especifico usar where, ex: createQuery(" from UsuarioPessoa where  nome = 'Julio'")*/
+				for (UsuarioPessoa usuarioPessoa : list) {
+				
+				System.out.println(usuarioPessoa);
+			}				
+		}
+		
+		@Test
+		public void testeQueryListParameter() {
+			
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			//iniciando uma lista
+			@SuppressWarnings("unchecked")
+			List<UsuarioPessoa> list = daoGeneric.getEntityManager()
+				.createQuery("from UsuarioPessoa where nome = :nome or sobrenome = :sobrenome")
+				.setParameter("nome", "José").setParameter("sobrenome", "Alfi").getResultList();
+			for (UsuarioPessoa usuarioPessoa : list) {
+				System.out.println(usuarioPessoa);
+			}	
+		}
+		
+	//soma das idades
+		@Test
+		public void testeQuerySomaIdade() {
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			
+			Long SomaIdade = (Long) daoGeneric.getEntityManager()
+					.createQuery("select sum(u.idade)from UsuarioPessoa u").getSingleResult();
+			System.out.println("Soma das idades  --> "+ SomaIdade);
+		}
+		
+		
 	
-}
+}//fim TesteHibernate
