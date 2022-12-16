@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Test;
 
 import dao.DaoGeneric;
+import model.TelefoneUser;
 import model.UsuarioPessoa;
 
 public class TesteHibernate {
@@ -150,6 +151,68 @@ public class TesteHibernate {
 					.createQuery("select sum(u.idade)from UsuarioPessoa u").getSingleResult();
 			System.out.println("Soma das idades  --> "+ SomaIdade);
 		}
+		
+	//teste de namedQuery, todo os usuarios
+		@Test
+		public void testeNamedQuery1() {
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			
+			@SuppressWarnings("unchecked")
+			List<UsuarioPessoa> list = daoGeneric.getEntityManager().
+					createNamedQuery("UsuarioPessoa.todos").getResultList();
+			
+			for (UsuarioPessoa usuarioPessoa : list) {
+				
+				System.out.println(usuarioPessoa);
+			}
+			
+		}
+		
+		//teste de namedQuery, busca por nome
+		@Test
+		public void testeNamedQuery2() {
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			
+			@SuppressWarnings("unchecked")
+			List<UsuarioPessoa> list = daoGeneric.getEntityManager().
+					createNamedQuery("UsuarioPessoa.buscaPorNome")
+					.setParameter("nome", "José").getResultList();
+			
+			for (UsuarioPessoa usuarioPessoa : list) {
+				
+				System.out.println(usuarioPessoa);
+			}					
+		}
+				
+//teste de salvar telefone
+	@Test
+	public void testeGravarTelefone() {
+		DaoGeneric  daoGeneric = new DaoGeneric(); //generico
+		
+		UsuarioPessoa pessoa = (UsuarioPessoa) daoGeneric.pesquisar(7L , UsuarioPessoa.class);
+		
+		TelefoneUser telefoneUser = new TelefoneUser();
+		
+		telefoneUser.setTipo("casa");
+		telefoneUser.setNumero("31-3595-7694");
+		telefoneUser.setUsuarioPessoa(pessoa);
+		
+		daoGeneric.salvar(telefoneUser);
+	}
+	
+	@Test
+	public void testeConsultaTelefones() {
+		DaoGeneric  daoGeneric = new DaoGeneric(); //generico
+		
+		UsuarioPessoa pessoa = (UsuarioPessoa) daoGeneric.pesquisar(7L , UsuarioPessoa.class);
+		
+		for (TelefoneUser fone : pessoa.getTelefoneUsers()) {
+			System.out.println(fone.getNumero());
+			System.out.println(fone.getTipo());
+			System.out.println(fone.getUsuarioPessoa().getNome());
+			System.out.println("----------------------------------------");
+		}
+	}
 		
 		
 	

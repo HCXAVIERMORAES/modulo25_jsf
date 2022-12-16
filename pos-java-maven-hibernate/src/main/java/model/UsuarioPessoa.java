@@ -1,12 +1,26 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
+
+
+/*anotação para nomear query sql para chamar em classe sem precisar faze-la na classe
+ * */
 //anotação para trabalhar com banco de dado
 @Entity
+@NamedQueries({
+	@NamedQuery(name ="UsuarioPessoa.todos" , query = "select u from UsuarioPessoa u"),
+	@NamedQuery(name ="UsuarioPessoa.buscaPorNome" , query = "select u from UsuarioPessoa u where u.nome = :nome	")
+})
 public class UsuarioPessoa {
 	//deve-se tbm colocar um ID e uma strategiade geração depois os atributos normais
 	@Id
@@ -20,10 +34,21 @@ public class UsuarioPessoa {
 	private String senha;
 	private int idade;
 	
+	//deve-se criar a lista de telefone, onde 1 usuario pode ter varios telefones
+	@OneToMany(mappedBy = "usuarioPessoa",fetch = FetchType.EAGER)
+	private List<TelefoneUser> telefoneUsers;
+	
 	//set e get
+	public List<TelefoneUser> getTelefoneUsers() {
+		return telefoneUsers;
+	}
+	
+	public void setTelefoneUsers(List<TelefoneUser> telefoneUsers) {
+		this.telefoneUsers = telefoneUsers;
+	}
 	
 	public void setIdade(int idade) {
-		this.idade = idade;
+		this.idade = idade; 	
 	}
 	
 	public int getIdade() {

@@ -7,6 +7,7 @@
 	<persistence-unit name="pos-java-maven-hibernate">
 		<!-- eliminando erro na classe chamando o pacote e classe -->
 		<class>model.UsuarioPessoa</class>
+		<class>model.TelefoneUser</class>
 	 	
 	 <properties>
 		<!-- dados de conexão com o banco, duvidas olhar a documentação do hibernate -->	
